@@ -133,39 +133,10 @@ export const ReactMouseSelect = ({
     }
   };
 
-  const handleSelectStart = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
   useEffect(() => {
     const element = containerRef?.current;
-    const elementBorder = borderRef.current;
     if (element) element.addEventListener('mousedown', handleMouseDown);
 
-    if (element) {
-      element.addEventListener('mousedown', handleMouseDown);
-      element.addEventListener('selectstart', handleSelectStart);
-    } else {
-      document.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('selectstart', handleSelectStart);
-    }
-
-    return () => {
-      if (element) {
-        element.removeEventListener('mousedown', handleMouseDown);
-        element.removeEventListener('mousemove', handleMoueMove);
-        element.removeEventListener('selectstart', handleSelectStart);
-      } else  {
-        document.removeEventListener('mousedown', handleMouseDown);
-        document.removeEventListener('mousemove', handleMoueMove);
-        document.removeEventListener('selectstart', handleSelectStart);
-      }
-      window.removeEventListener('mouseup', handleMouseUp);
-      window.removeEventListener('click', handleClick, { capture: true });
-
-      if (elementBorder) elementBorder.removeEventListener('mousemove', handleMoueMove);
-    };
   }, []);
 
   useEffect(() => {
